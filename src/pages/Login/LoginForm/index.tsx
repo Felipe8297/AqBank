@@ -59,7 +59,7 @@ export function LoginForm() {
         />
 
         <div className="flex flex-col gap-8 text-label14 font-medium text-neutral950 mt-4">
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <Checkbox
               id="stayConnected"
               name="stayConnected"
