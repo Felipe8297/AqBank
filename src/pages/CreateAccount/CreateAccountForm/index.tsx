@@ -26,7 +26,6 @@ export function CreateAccountForm() {
     await new Promise((resolve) => setTimeout(resolve, 1000))
     setLoading(false)
     setSuccess(true)
-    console.log(userName, email, password, terms)
   }
   return (
     <div className="relative">
