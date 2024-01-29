@@ -34,7 +34,7 @@ export function InputForm({
           value={value}
           onChange={onChange}
           required
-          className="flex-1  border-0 bg-transparent p-0 text-regular14 text-neutral-950 placeholder-zinc-600"
+          className="flex-1 border-0 bg-transparent p-0 text-regular14 text-neutral-950 placeholder-zinc-600"
         />
         {type === 'password' && <img src={EyeIcon} alt={title} />}
       </div>
