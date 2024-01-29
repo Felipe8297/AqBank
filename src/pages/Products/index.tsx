@@ -14,7 +14,7 @@ export function Products() {
   const [filterList, setFilterList] = useState<string[]>([])
   const [tableData, setTableData] = useState<product[]>(data)
 
-  const handleFilterClick = () => {
+  function handleFilterClick() {
     if (filterList.length !== 0) {
       setTableData(data.filter((item) => filterList.includes(item.status)))
     } else {
@@ -22,7 +22,7 @@ export function Products() {
     }
   }
 
-  const handleClearFilter = () => {
+  function handleClearFilter() {
     setFilterList([])
     setTableData(data)
   }
