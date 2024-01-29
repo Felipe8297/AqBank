@@ -30,7 +30,7 @@ export function CreateAccountForm() {
   }
   return (
     <div className="relative">
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
         <InputForm
           title="Nome completo"
           type="text"

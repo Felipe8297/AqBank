@@ -1,13 +1,31 @@
 import { DataTable } from '../../components/data-table'
+import { data } from '../../data/products'
 
 import productsIcon from '../../assets/icons/products-icon.svg'
 import { SellDetails } from '../../components/sell-details'
 import walletIcon from '../../assets/icons/walletBlack-icon.svg'
 import withdrawIcon from '../../assets/icons/withdraw-icon.svg'
-import filterIcon from '../../assets/icons/filter-icon.svg'
 import plusIcon from '../../assets/icons/plus-icon.svg'
+import { useState } from 'react'
+import { product } from '@/types/interface'
+import { FilterModal } from '../../components/filter-modal'
 
 export function Products() {
+  const [filterList, setFilterList] = useState<string[]>([])
+  const [tableData, setTableData] = useState<product[]>(data)
+
+  const handleFilterClick = () => {
+    if (filterList.length !== 0) {
+      setTableData(data.filter((item) => filterList.includes(item.status)))
+    } else {
+      setTableData(data)
+    }
+  }
+
+  const handleClearFilter = () => {
+    setFilterList([])
+    setTableData(data)
+  }
   return (
     <section>
       <div className="flex gap-2 items-center">
@@ -52,17 +70,19 @@ export function Products() {
       </div>
 
       <div className="flex justify-between">
-        <button className="flex items-center gap-2 border rounded-xl px-3 py-1 mb-4">
-          <img src={filterIcon} alt="" />{' '}
-          <span className="text-regular14 font-medium">Status</span>
-        </button>
+        <FilterModal
+          filterList={filterList}
+          setFilterList={setFilterList}
+          handleFilterClick={handleFilterClick}
+          handleClearFilter={handleClearFilter}
+        />
         <button className="flex items-center gap-2 border rounded-xl px-3 py-1 mb-4 bg-primary300">
           <img src={plusIcon} alt="" />{' '}
           <span className="text-bold14">Cadastrar produto</span>
         </button>
       </div>
 
-      <DataTable />
+      <DataTable data={tableData} />
     </section>
   )
 }

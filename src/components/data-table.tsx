@@ -6,10 +6,14 @@ import {
 } from '@tanstack/react-table'
 import { StatusText } from './status-text'
 import { product } from '../types/interface'
-import { data } from '../data/products'
 import { Modal } from './modal'
+import { Pagination } from './pagination'
 
-export function DataTable() {
+interface DataTableProps {
+  data: product[]
+}
+
+export function DataTable({ data }: DataTableProps) {
   const columnHelper = createColumnHelper<product>()
 
   const columns = [
@@ -92,43 +96,48 @@ export function DataTable() {
     getCoreRowModel: getCoreRowModel(),
   })
 
+  // <Pagination pageIndex={0} totalCount={105} perPage={10} />
   return (
-    <div className="border rounded-xl overflow-hidden">
-      <table className="w-full">
-        <thead className="bg-neutral100">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="text-regular14 text-neutral800 text-left py-2 px-3"
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-b last:border-0">
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  className="text-regular14 font-medium text-left py-3 px-3"
-                  key={cell.id}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <div className="border rounded-xl overflow-hidden mb-2">
+        <table className="w-full">
+          <thead className="bg-neutral100">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="text-regular14 text-neutral800 text-left py-2 px-3"
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id} className="border-b last:border-0">
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    className="text-regular14 font-medium text-left py-3 px-3"
+                    key={cell.id}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <Pagination totalCount={data.length} />
     </div>
   )
 }
